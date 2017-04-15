@@ -21,7 +21,7 @@ public class TaskServiceTest {
 	
 	@Test
 	public void shouldSave(){
-		Task task = new Task ("dishes", "do dishes well");
+		Task task = new Task ("dishes", "do dishes");
 		service.save(task);
 		assertTrue(service.findAll().contains(task));
 	}
