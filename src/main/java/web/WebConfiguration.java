@@ -26,7 +26,6 @@ import org.thymeleaf.spring4.view.ThymeleafViewResolver;
  * http://stackoverflow.com/questions/19903637/how-to-deploy-my-spring-mvc-web-application-using-the-build-classes-or-war-file
  */
 
-
 @Configuration
 @EnableWebMvc
 @ComponentScan("web")
