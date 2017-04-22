@@ -1,0 +1,7 @@
+core/model/TaskRepo.class
+core/service/TaskService.class
+web/controller/TaskController.class
+core/model/Task.class
+servlet_config/ServletConfig.class
+core/CoreConfiguration.class
+web/WebConfiguration.class

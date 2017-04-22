@@ -10,12 +10,11 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.multipart.MultipartResolver;
 import org.springframework.web.multipart.support.StandardServletMultipartResolver;
+import org.springframework.web.servlet.ViewResolver;
 import org.springframework.web.servlet.config.annotation.DefaultServletHandlerConfigurer;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
-import org.thymeleaf.spring4.SpringTemplateEngine;
-import org.thymeleaf.spring4.templateresolver.SpringResourceTemplateResolver;
-import org.thymeleaf.spring4.view.ThymeleafViewResolver;
+import org.springframework.web.servlet.view.InternalResourceViewResolver;
 
 /*
  * What is WEB-INF?
@@ -33,30 +32,16 @@ public class WebConfiguration extends WebMvcConfigurerAdapter implements Applica
 	
 	private ApplicationContext applicationContext;
 	
-	@Bean
-	public SpringResourceTemplateResolver templateResolver(){
-		SpringResourceTemplateResolver templateResolver = new SpringResourceTemplateResolver();
-		templateResolver.setApplicationContext(this.applicationContext);
-		templateResolver.setPrefix("/WEB-INF/templates/");
-		templateResolver.setSuffix(".html");
-		templateResolver.setCacheable(false);
-		return templateResolver;	
-	}
+    @Bean
+    public ViewResolver viewResolver(){
+    	InternalResourceViewResolver resolver = new InternalResourceViewResolver();
+    	resolver.setPrefix("/WEB-INF/templates/");
+    	resolver.setSuffix(".jsp");
+    	resolver.setViewClass(org.springframework.web.servlet.view.JstlView.class);
+    	return resolver;
+    }
 	
-	@Bean
-	public SpringTemplateEngine templateEngine(){
-		SpringTemplateEngine templateEngine = new SpringTemplateEngine();
-		templateEngine.setTemplateResolver(templateResolver());
-		return templateEngine;
-	}
-	
-	@Bean
-	public ThymeleafViewResolver viewResolver(){
-		ThymeleafViewResolver viewResolver = new ThymeleafViewResolver();
-		viewResolver.setTemplateEngine(templateEngine());
-		return viewResolver;	
-	}
-	
+
 	
 	@Bean
 	public MultipartResolver multipartResolver() throws IOException{
