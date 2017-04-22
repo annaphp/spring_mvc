@@ -57,6 +57,7 @@ public class WebConfiguration extends WebMvcConfigurerAdapter implements Applica
 		return viewResolver;	
 	}
 	
+	
 	@Bean
 	public MultipartResolver multipartResolver() throws IOException{
 		return new StandardServletMultipartResolver();
