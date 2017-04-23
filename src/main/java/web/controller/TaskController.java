@@ -17,36 +17,31 @@ public class TaskController {
 	@Autowired
 	TaskService service;
 	
-	@RequestMapping(value = "/", method = RequestMethod.GET)
-	public String home(){
-		
+	
+	@RequestMapping(method = RequestMethod.GET)
+	public String listTasks(Model model){
+		model.addAttribute("tasks", service.findAll());
+		model.addAttribute("task",new Task());
 		return "home";
 	}
+
+	@RequestMapping(value={"/edit/{id}", ""}, method = RequestMethod.POST)
+	public String saveTask(Task task){
+		service.save(task);
+		return "redirect:/tasks/";
+	}
 	
-//	@RequestMapping(value = "/", method = RequestMethod.GET)
-//	public String listTasks(Model model){
-//		model.addAttribute("tasks", service.findAll());
-//		model.addAttribute("task",new Task());
-//		return "home";
-//	}
-//	
-//	@RequestMapping(value="/save", method = RequestMethod.POST)
-//	public String saveTask(Task task){
-//		service.save(task);
-//		return "redirect:/tasks/";
-//	}
-//	
-//	@RequestMapping(value="/delete/{id}", method = RequestMethod.GET)
-//	public String deleteTask(@PathVariable("id") Long id){
-//		service.deleteById(id);
-//		return "redirect:/tasks/";
-//	}
-//	
-//	
-//	@RequestMapping(value="/edit/{id}", method = RequestMethod.GET)
-//	public String editTask(@PathVariable("id") Long id, Model model){
-//		model.addAttribute("task",service.findById(id));
-//		return "edit";
-//	}
+	@RequestMapping(value="/delete/{id}", method = RequestMethod.GET)
+	public String deleteTask(@PathVariable("id") Long id){
+		service.deleteById(id);
+		return "redirect:/tasks";
+	}
+	
+	
+	@RequestMapping(value="/edit/{id}", method = RequestMethod.GET)
+	public String editTask(@PathVariable("id") Long id, Model model){
+		model.addAttribute("task",service.findById(id));
+		return "edit";
+	}
 	
 }
